@@ -23,13 +23,13 @@ public class RNGMethods {
 				}
 				break;
 			case 2:
-				menuSecundary("otro metodo");
+				menuSecundary("Newman");
 				switch(getInt("Ingresa Opcion: ")){
 				case 1:
-					otroMetodo(getInt("Ingresa semilla:"));
+					otroMetodo(getLong("Ingresa semilla:"));
 					break;
 				case 2:
-					otroMetodo( ThreadLocalRandom.current().nextInt(1000000000, 1000000000*10));
+					otroMetodo( ThreadLocalRandom.current().nextLong((1000000000), (1000000000*10)));
 					break;
 				}
 				break;
@@ -44,7 +44,7 @@ public class RNGMethods {
 	public static void menuMain(){
 		System.out.println("Menu");
 		System.out.println("1 - Metodo de medios cuadrados");
-		System.out.println("2 - Metodo otro");
+		System.out.println("2 - Metodo de Newman");
 	}
 	public static void menuSecundary(String titulo){
 		System.out.println(titulo);
@@ -57,9 +57,15 @@ public class RNGMethods {
 		return scan.nextInt();
 	}
 	
+	public static Long getLong(String message){
+		Scanner scan = new Scanner(System.in);
+		System.out.println(message);
+		return scan.nextLong();
+	}
+	
 	//Metodo 2
 	public static void otroMetodo(long semilla){
-		System.out.println("Semilla: "+semilla);
+		printSemilla(semilla);
 		ArrayList<Long> numeros = new ArrayList<>();
 		long x0=getOtroMetodo(semilla),i=1,num;
 		boolean continuar=true;
@@ -70,23 +76,28 @@ public class RNGMethods {
 			numeros.add(x0);
 		}while(continuar);
 		printNumber(x0,i++);
+		printSemilla(semilla);
+
 	}
 	public static long getOtroMetodo(long entrada){
 		long square = entrada;
+		long limite = 1000000000*10;
 		System.out.println("cuadrado - "+square);
 		System.out.println();
-		while(square>100000){
-			square = removeDigit(square);
-			if (square>100000){
-				square /= 10;
+		while(square>limite){
+			square /= 10;
+			if (square>limite){
+				square = removeDigit(square);
 			}
 		};
 		return square;
+		
 	}
 	
 	//Medios Cuadrados
 	public static void mediosCuadrados(long semilla){
 		System.out.println("Semilla: "+semilla);
+
 		ArrayList<Long> numeros = new ArrayList<>();
 		long x0=semilla,i=1,num;
 		boolean continuar=true;
@@ -97,6 +108,7 @@ public class RNGMethods {
 			numeros.add(x0);
 		}while(continuar);
 		printNumber(x0,i++);
+
 	}
 	public static boolean condicion(long num,ArrayList<Long> numeros){
 		if (num==0){
@@ -127,7 +139,11 @@ public class RNGMethods {
 		return n %= (long) Math.pow(10, (long) Math.log10(n));
 	}
 	private static void printNumber(long n, long index){
-		String formatted = String.format("%d - %05d",(int)index ,(int)n);
+		String formatted = String.format("%d - %05d",index ,n);
+		System.out.println(formatted);
+	}
+	private static void printSemilla(long n){
+		String formatted = String.format("semilla - %05d",n);
 		System.out.println(formatted);
 	}
 }
