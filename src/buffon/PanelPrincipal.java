@@ -1,4 +1,4 @@
-package Dardos;
+package buffon;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,9 +24,9 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class AgujasPanel extends JPanel{
+public class PanelPrincipal extends JPanel{
 
-	public ArrayList<Needle> needles = new ArrayList<>();
+	public ArrayList<Aguja> needles = new ArrayList<>();
 	XYSeriesCollection dataset = new XYSeriesCollection();
 	XYSeries s1 = new XYSeries("Aprox PI");
 	double rights = 0;
@@ -36,10 +36,10 @@ public class AgujasPanel extends JPanel{
 	DecimalFormat df = new DecimalFormat("#.0000000000000"); 
 	
 //	int maxTime = 10000;
-	public AgujasPanel(JLabel label){
+	public PanelPrincipal(JLabel label){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		dataset.addSeries(s1);
-		this.add(new AgujasPanelDraw(needles));
+		this.add(new Tablero(needles));
 		this.add(createChartPanel());
 		this.label = label;
 	}
@@ -86,11 +86,11 @@ public class AgujasPanel extends JPanel{
 	}
 	public void throwNeedle(){
 
-		Point origin = new Point(ThreadLocalRandom.current().nextInt(1, 801),ThreadLocalRandom.current().nextInt(0, 401));
-		int angle = ThreadLocalRandom.current().nextInt(0, 360);
-		Point p2 = new Point(Math.max(-1, Math.min((int)Math.round(origin.x+Math.cos(angle)*needleLen),800)),Math.max(-1, Math.min((int)Math.round(origin.y+Math.sin(angle)*needleLen),400)));
+		Point origen = new Point(ThreadLocalRandom.current().nextInt(1, 801),ThreadLocalRandom.current().nextInt(0, 401));
+		int angulo = ThreadLocalRandom.current().nextInt(0, 360);
+		Point p2 = new Point(Math.max(-1, Math.min((int)Math.round(origen.x+Math.cos(angulo)*needleLen),800)),Math.max(-1, Math.min((int)Math.round(origen.y+Math.sin(angulo)*needleLen),400)));
 		Color color;
-		Needle n = new Needle(origin,p2);
+		Aguja n = new Aguja(origen,p2);
 		if (validateNeedle(n)){
 			n.c = Color.GREEN;
 			rights++;
@@ -104,7 +104,7 @@ public class AgujasPanel extends JPanel{
 	public double aprox(){
 		return (rights==0)?0:(2*((double)needles.size()/rights));
 	}
-	public boolean validateNeedle(Needle n){
+	public boolean validateNeedle(Aguja n){
 		if ((n.p1.x+100)/100==(n.p2.x+100)/100){
 			return false;
 		} else {
@@ -114,10 +114,10 @@ public class AgujasPanel extends JPanel{
 	
 }
 
-class Needle{
+class Aguja{
 	Point p1,p2;
 	Color c;
-	public Needle(Point p1, Point p2){
+	public Aguja(Point p1, Point p2){
 		this.p1 = p1;
 		this.p2 = p2;
 	}

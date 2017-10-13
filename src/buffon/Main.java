@@ -1,4 +1,4 @@
-package Dardos;
+package buffon;
 
 import java.awt.BorderLayout;import java.awt.Color;
 import java.awt.Component;
@@ -16,12 +16,12 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-public class GUI extends JFrame{
+public class Main extends JFrame{
 	
 	JLabel aproxLabel = new JLabel("Aproximacion");
-	AgujasPanel AP = new AgujasPanel(aproxLabel);
+	PanelPrincipal AP = new PanelPrincipal(aproxLabel);
 	
-	public GUI(){
+	public Main(){
 		this.setSize(800,900);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
@@ -79,7 +79,7 @@ public class GUI extends JFrame{
 	}
 	
 	public static void main(String[] args){
-		new GUI().setVisible(true);
+		new Main().setVisible(true);
 	}
 	
 }

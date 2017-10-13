@@ -1,4 +1,4 @@
-package Buffon;
+package juegoDeDardos;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -24,22 +24,23 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class DardosPanel extends JPanel{
+public class PanelPrincipal extends JPanel{
 
-	public ArrayList<Dart> darts = new ArrayList<>();
+	public ArrayList<Dardo> darts = new ArrayList<>();
 	XYSeriesCollection dataset = new XYSeriesCollection();
 	XYSeries s1 = new XYSeries("Aprox PI");
 	double rights = 0;
 	double events = 1000;
 	double radio = 200;
 	JLabel label;
+	
 	DecimalFormat df = new DecimalFormat("#.0000000000000"); 
 	
 //	int maxTime = 10000;
-	public DardosPanel(JLabel label){
+	public PanelPrincipal(JLabel label){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		dataset.addSeries(s1);
-		this.add(new DardosPanelDraw(darts));
+		this.add(new Tablero(darts));
 		this.add(createChartPanel());
 		this.label = label;
 	}
@@ -88,7 +89,7 @@ public class DardosPanel extends JPanel{
 
 		Point origin = new Point(ThreadLocalRandom.current().nextInt(200, 601),ThreadLocalRandom.current().nextInt(0, 401));
 		Color color;
-		Dart n = new Dart(origin);
+		Dardo n = new Dardo(origin);
 		if (validateDart(n)){
 			n.c = Color.GREEN;
 			rights++;
@@ -102,7 +103,7 @@ public class DardosPanel extends JPanel{
 	public double aprox(){
 		return (4*((double)rights/darts.size()));
 	}
-	public boolean validateDart(Dart dart){
+	public boolean validateDart(Dardo dart){
 		if (Math.sqrt(Math.pow(dart.p.x-400,2)+Math.pow(dart.p.y-200, 2))>=radio){
 			return false;
 		} else {
@@ -112,10 +113,10 @@ public class DardosPanel extends JPanel{
 	
 }
 
-class Dart{
+class Dardo{
 	Point p;
 	Color c;
-	public Dart(Point p){
+	public Dardo(Point p){
 		this.p = p;
 	}
 	public void setColor(Color c){

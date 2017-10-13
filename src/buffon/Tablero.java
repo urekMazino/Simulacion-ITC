@@ -1,4 +1,4 @@
-package Dardos;
+package buffon;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -7,12 +7,12 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-public class AgujasPanelDraw extends JPanel{
+public class Tablero extends JPanel{
 	
-	public ArrayList<Needle> needles;
+	public ArrayList<Aguja> agujas;
 
-	public AgujasPanelDraw(ArrayList<Needle> needles){
-		this.needles = needles;
+	public Tablero(ArrayList<Aguja> agujas){
+		this.agujas = agujas;
 		this.setMinimumSize(new Dimension(800,400));
 		this.setPreferredSize(new Dimension(800,400));
 	}
@@ -28,7 +28,8 @@ public class AgujasPanelDraw extends JPanel{
 			}
 			g.fillRect(i*100,0,100,400);
 		}
-		for (Needle x : needles){
+		for (int i=0;i<agujas.size();i++){
+			Aguja x = agujas.get(i);
 			g.setColor(x.c);
 			g.drawLine(x.p1.x, x.p1.y, x.p2.x, x.p2.y);
 		}
