@@ -151,24 +151,12 @@ public class RNGMethods {
 		String formatted = String.format("%d - %04d",(long)index ,(long)n);
 		System.out.println(formatted);
 	}
-	private static void printNumber8(double n, double index){
-		String formatted = String.format("%d - %08d",(long)index ,(long)n);
-		System.out.println(formatted);
-	}
 	private static void printSemilla(double n){
 		String formatted = String.format("semilla - %04d",(long)n);
 		System.out.println(formatted);
 	}
 	private static void printNumber10(double n, double index){
 		String formatted = String.format("%d - %010d",(long)index ,(long)n);
-		System.out.println(formatted);
-	}
-	private static void printNumber20(double n){
-		String formatted = String.format("square - %20d" ,(long)n);
-		System.out.println(formatted);
-	}
-	private static void printSemilla10(double n){
-		String formatted = String.format("semilla - %10d",(long)n);
 		System.out.println(formatted);
 	}
 }
