@@ -1,4 +1,4 @@
-package Buffon;
+package Dardos;
 
 import java.awt.BorderLayout;import java.awt.Color;
 import java.awt.Component;
@@ -19,13 +19,13 @@ import javax.swing.JTextField;
 public class GUI extends JFrame{
 	
 	JLabel aproxLabel = new JLabel("Aproximacion");
-	DardosPanel AP = new DardosPanel(aproxLabel);
+	AgujasPanel AP = new AgujasPanel(aproxLabel);
 	
 	public GUI(){
 		this.setSize(800,900);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setResizable(false);
-		this.setTitle("Juego de los dardos");
+		this.setTitle("Aguja de buffon");
 		createInput();
 		createBoard();
 	}

@@ -24,22 +24,22 @@ import org.jfree.chart.plot.XYPlot;
 import org.jfree.data.xy.XYSeries;
 import org.jfree.data.xy.XYSeriesCollection;
 
-public class AgujasPanel extends JPanel{
+public class DardosPanel extends JPanel{
 
-	public ArrayList<Needle> needles = new ArrayList<>();
+	public ArrayList<Dart> darts = new ArrayList<>();
 	XYSeriesCollection dataset = new XYSeriesCollection();
 	XYSeries s1 = new XYSeries("Aprox PI");
 	double rights = 0;
 	double events = 1000;
-	double needleLen = 100;
+	double radio = 200;
 	JLabel label;
 	DecimalFormat df = new DecimalFormat("#.0000000000000"); 
 	
 //	int maxTime = 10000;
-	public AgujasPanel(JLabel label){
+	public DardosPanel(JLabel label){
 		this.setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		dataset.addSeries(s1);
-		this.add(new AgujasPanelDraw(needles));
+		this.add(new DardosPanelDraw(darts));
 		this.add(createChartPanel());
 		this.label = label;
 	}
@@ -58,7 +58,7 @@ public class AgujasPanel extends JPanel{
 		return cPanel;
 	}
 	public void startSimulation(double agujas){
-		needles.clear();
+		darts.clear();
 		s1.clear();
 		rights = 0;
 		Timer timer = new Timer();
@@ -70,42 +70,40 @@ public class AgujasPanel extends JPanel{
 			@Override
 			public void run() {
 				for (int i=0;i<per100m;i++){
-					if (needles.size() >= events){
-						System.out.println(needles.size()+","+rights);
+					if (darts.size() >= events){
+						System.out.println(darts.size()+","+rights);
 						timer.cancel();
 						break;
 					}
 //					System.out.println("Valor aprox de pi: "+);
 
-					throwNeedle();
+					throwDart();
 				}
 				repaint();
 			}
 			
 		},(long) 100, 100);
 	}
-	public void throwNeedle(){
+	public void throwDart(){
 
-		Point origin = new Point(ThreadLocalRandom.current().nextInt(1, 801),ThreadLocalRandom.current().nextInt(0, 401));
-		int angle = ThreadLocalRandom.current().nextInt(0, 360);
-		Point p2 = new Point(Math.max(-1, Math.min((int)Math.round(origin.x+Math.cos(angle)*needleLen),800)),Math.max(-1, Math.min((int)Math.round(origin.y+Math.sin(angle)*needleLen),400)));
+		Point origin = new Point(ThreadLocalRandom.current().nextInt(200, 601),ThreadLocalRandom.current().nextInt(0, 401));
 		Color color;
-		Needle n = new Needle(origin,p2);
-		if (validateNeedle(n)){
+		Dart n = new Dart(origin);
+		if (validateDart(n)){
 			n.c = Color.GREEN;
 			rights++;
 		} else {
 			n.c = Color.RED;
 		}
-		needles.add(n);
-		s1.add(needles.size(),aprox());
+		darts.add(n);
+		s1.add(darts.size(),aprox());
 		label.setText("Pi: "+df.format(aprox()));
 	}
 	public double aprox(){
-		return (rights==0)?0:(2*((double)needles.size()/rights));
+		return (4*((double)rights/darts.size()));
 	}
-	public boolean validateNeedle(Needle n){
-		if ((n.p1.x+100)/100==(n.p2.x+100)/100){
+	public boolean validateDart(Dart dart){
+		if (Math.sqrt(Math.pow(dart.p.x-400,2)+Math.pow(dart.p.y-200, 2))>=radio){
 			return false;
 		} else {
 			return true;
@@ -114,11 +112,13 @@ public class AgujasPanel extends JPanel{
 	
 }
 
-class Needle{
-	Point p1,p2;
+class Dart{
+	Point p;
 	Color c;
-	public Needle(Point p1, Point p2){
-		this.p1 = p1;
-		this.p2 = p2;
+	public Dart(Point p){
+		this.p = p;
+	}
+	public void setColor(Color c){
+		this.c = c;
 	}
 }

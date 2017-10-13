@@ -1,4 +1,4 @@
-package Buffon;
+package Dardos;
 
 import java.awt.Color;
 import java.awt.Dimension;
