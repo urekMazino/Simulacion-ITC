@@ -49,7 +49,7 @@ public class BorrachoMain {
 		for (int i=0;i<it;i++){
 			lanzar(i+1);
 		}
-		System.out.println("La probabilidad es de: "+((float)ocurrencias/(float)it));
+		System.out.println("La probabilidad de que quede a 2 cuadras es de: "+(((float)ocurrencias/(float)it)*100)+"%");
 	}
 	public static void lanzar(int iteracion){
 		Point posicion = new Point(0,0);
@@ -64,6 +64,7 @@ public class BorrachoMain {
 				}
 			}
 		}
+		System.out.println();
 		if (estaA2(posicion).equals("si")){
 			ocurrencias++;
 		}
