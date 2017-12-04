@@ -44,7 +44,7 @@ public class BorrachoMain {
 		}
 	}
 	public static void metodo(){
-		System.out.println("n\tcuadras rec.\t# aleatorio\tposicion actual\tA 2 cuadras?");
+		System.out.println("n\tcuadras rec.\t# aleatorio\tposicion \tA 2 cuadras?");
 		clearData();
 		for (int i=0;i<it;i++){
 			lanzar(i+1);
