@@ -34,7 +34,7 @@ public class chiCuadrada{
 
 	public static boolean comparar(int i,double porcentaje,double n){
 		double probabilidad = probabilidades[((i-2)*15)+getColumna(porcentaje)];
-		System.out.println("el valor de chi cuadrada para "+i+" grados de libertad y error de "+(porcentaje*100)+"% es de: "+probabilidad);
+		System.out.println("el valor de chi cuadrada para "+(i-1)+" grados de libertad y error de "+(porcentaje*100)+"% es de: "+probabilidad);
 		return n<probabilidad;
 	}
 	public static int getColumna(double porcentaje){

@@ -20,8 +20,8 @@ public class ParesPrueba {
 		double esperada = ((double)n)/(cuadrado*cuadrado);
 		double subDivision = 1.0/cuadrado;
 		for (int i=0;i<n;i++){
-			int fila = (int)(numeros[i]/subDivision);
-			int columna = (int)(numeros[((i+1==n)?i:i+1)]/subDivision);
+			int columna = (int)(numeros[i]/subDivision);
+			int fila = (int)(numeros[((i+1==n)?i:i+1)]/subDivision);
 			cuadro[fila][columna]++;
 		}
 		System.out.println("Oi");
@@ -69,13 +69,6 @@ public class ParesPrueba {
 		System.out.println(message);
 		return scan.nextDouble();
 	}
-	public Intervalo[] generarIntervalos(){
-		intervalos = new Intervalo[(int) Math.round(Math.sqrt(n))];
-		for (int i=0;i<intervalos.length;i++){
-			intervalos[i] = new Intervalo(((double)i)/intervalos.length,((double)i+1)/intervalos.length,i+"",((double)n)/intervalos.length);
-		}
-		return intervalos;
-	}
 	
 	public void generarNumeros(){
 		numeros = new double[n];
@@ -83,6 +76,7 @@ public class ParesPrueba {
 			numeros[i] = Math.random();
 			System.out.println(i+"  "+ numeros[i]);
 		}
+		numeros = MisNumeros.numeros;
 	}
 	public static void main(String args[]){ 
 		new ParesPrueba().metodo();

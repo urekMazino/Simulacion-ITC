@@ -96,6 +96,7 @@ public class huecosPrueba {
 		for (int i=0;i<n;i++){
 			numeros[i] = Math.random();
 		}
+//		numeros = MisNumeros.numeros;
 	}
 	
 	public void leerDatos(){
