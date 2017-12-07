@@ -1,4 +1,4 @@
-package pruebas;
+package pruebas.logica;
 
 public class MisNumeros {
 	static double[] numeros={

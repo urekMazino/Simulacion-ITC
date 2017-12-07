@@ -1,4 +1,4 @@
-package pruebas;
+package pruebas.logica;
 
 public class chiCuadrada{
 	private static double[] columnas = {0.001,0.0025,0.005,0.01,0.025,0.05,0.1,0.15,0.25,0.3,0.35,0.4,0.45,0.5};
@@ -32,10 +32,9 @@ public class chiCuadrada{
 			,56.8918,53.5939,50.9936,48.2782,44.4608,41.3372,37.9159,35.7150,34.0266,32.6205,31.3909,30.2791,29.2486,28.2740,27.3362
 			,58.3006,54.9662,52.3355,49.5878,45.7223,42.5569,39.0875,36.8538,35.1394,33.7109,32.4612,31.3308,30.2825,29.2908,28.3361};
 
-	public static boolean comparar(int i,double porcentaje,double n){
+	public static double getValor(int i,double porcentaje){
 		double probabilidad = probabilidades[((i-2)*15)+getColumna(porcentaje)];
-		System.out.println("el valor de chi cuadrada para "+(i-1)+" grados de libertad y error de "+(porcentaje*100)+"% es de: "+probabilidad);
-		return n<probabilidad;
+		return probabilidad;
 	}
 	public static int getColumna(double porcentaje){
 		for (int i=0;i<columnas.length;i++){

@@ -1,14 +1,24 @@
-package pruebas;
+package pruebas.logica;
 
 import java.util.Scanner;
 
+import javax.swing.JTextArea;
+
+import pruebas.componentes.PanelEntrada;
+import pruebas.componentes.PanelTabla;
+
 public class ChiPrueba {
 	int n;
+	PanelTabla panelTabla;
 	double porcentaje;
 	Intervalo[] intervalos;
 	double[] numeros;
-	public void metodo(){
-		leerDatos();
+	JTextArea txtArea;
+	public void metodo(int n,double porcentaje,PanelTabla panelTabla,JTextArea txtArea){
+		this.n = n;
+		this.porcentaje = porcentaje;
+		this.panelTabla = panelTabla;
+		this.txtArea = txtArea;
 		generarNumeros();
 		generarIntervalos();
 		contarOcurrencias();
@@ -25,35 +35,29 @@ public class ChiPrueba {
 		}
 	}
 	public void crearTabla(){
-		System.out.println("i\tprobabilidad \tOi\tEi\t(Oi-Ei)^2/2");
 		double chiCuadradaObtenida=0;
+		String res = "<html><center>";
 		for (int i=0;i<intervalos.length;i++){
-			System.out.printf("%d\t%f\t%d\t%f\t%f\n",i,intervalos[i].superior,intervalos[i].ocurrencias,intervalos[i].esperada,intervalos[i].resultado);
+			panelTabla.model.addRow(new Object[]{i+"",
+					intervalos[i].superior+"",
+					intervalos[i].ocurrencias+"",
+					intervalos[i].esperada+"",
+					intervalos[i].resultado+""});
 			chiCuadradaObtenida+=intervalos[i].resultado;
 		}
-		System.out.println("sumatoria es igual a: "+chiCuadradaObtenida);
-		if (chiCuadrada.comparar(intervalos.length, porcentaje, chiCuadradaObtenida)){
-			System.out.println("es menor por lo que los numeros son uniformes");
+		panelTabla.model.addRow(new Object[]{"","","","","X2 ="+chiCuadradaObtenida});
+		double valorChi = chiCuadrada.getValor(intervalos.length, porcentaje);
+		res +=("el valor de chi cuadrada para "+(intervalos.length-1)+" grados de libertad y error de "+(porcentaje*100)+"% es de: "+valorChi);
+		if (chiCuadradaObtenida<valorChi){
+			res+=("<br>"+chiCuadradaObtenida+" es menor que "+valorChi+" por lo que los numeros son uniformes");
 			
 		} else {
-			System.out.println("es mayorpor lo que los numeros no son uniformes");
+			res+=("<br>"+chiCuadradaObtenida+" es mayor que "+valorChi+" por lo que los numeros no son uniformes");
 		}
+		res+="</center></html>";
+		panelTabla.lbResultado.setText(res);
 	}
-	public void leerDatos(){
-		n = getInt("Ingresa el numero de numeros: ");
-		porcentaje = getDouble("Ingresa el porcentaje de error: ");
-	}
-
-	public static int getInt(String message){
-		Scanner scan = new Scanner(System.in);
-		System.out.println(message);
-		return scan.nextInt();
-	}
-	public static double getDouble(String message){
-		Scanner scan = new Scanner(System.in);
-		System.out.println(message);
-		return scan.nextDouble();
-	}
+	
 	public Intervalo[] generarIntervalos(){
 		intervalos = new Intervalo[(int) Math.round(Math.sqrt(n))];
 		for (int i=0;i<intervalos.length;i++){
@@ -64,13 +68,12 @@ public class ChiPrueba {
 	
 	public void generarNumeros(){
 		numeros = new double[n];
+		String output = "";
 		for (int i=0;i<n;i++){
 			numeros[i] = Math.random();
-			System.out.println(i+"  "+ numeros[i]);
+			output +=numeros[i] +"\n";
 		}
-	}
-	public static void main(String args[]){
-		new ChiPrueba().metodo();
+		txtArea.setText(output);
 	}
 	
 }

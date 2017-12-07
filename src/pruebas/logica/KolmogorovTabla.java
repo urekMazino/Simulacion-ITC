@@ -1,6 +1,6 @@
-package pruebas;
+package pruebas.logica;
 
-public class kolmogorovTabla{
+public class KolmogorovTabla{
 	private static double[] columnas = {0.1,0.05,0.02,0.01};
 	private static double[] probabilidades = {0.95000,0.97500,0.99000,0.99500
 			,0.77639,0.84189,0.90000,0.92929
@@ -42,7 +42,8 @@ public class kolmogorovTabla{
 			,0.19392,0.21544,0.24089,0.25843
 			,0.19148,0.21273,0.23786,0.25518
 			,0.18913,0.21012,0.23494,0.25205};
-	public static boolean comparar(int i,double porcentaje,double n){
+
+	public static double getValor(int i,double porcentaje){
 		double probabilidad = 0;
 		if (i<=40){
 			probabilidad = probabilidades[((i-1)*4)+getColumna(porcentaje)];
@@ -62,8 +63,7 @@ public class kolmogorovTabla{
 					break;
 			}
 		}
-		System.out.println("el valor de kolmogorovSmirnov para estos parametros es de: "+probabilidad);
-		return n<probabilidad;
+		return probabilidad;
 	}
 	public static int getColumna(double porcentaje){
 		for (int i=0;i<columnas.length;i++){
